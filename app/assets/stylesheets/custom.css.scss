@@ -1,1 +1,39 @@
 @import 'bootstrap/dist/css/bootstrap';
+
+/* Home page */
+
+.jumbotron {
+  text-align: center;
+  background-image: asset-url('vla-2020.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  font-family: 'Helvetica Neue' !important;
+  font-stretch: expanded;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+  text-shadow: -1px 0 #555, 0 1px #555, 1px 0 #555, 0 -1px #555;
+}
+
+.card-deck {
+  justify-content: center;
+}
+
+/* Sticky Footer */
+
+html,
+body {
+  height: 100%;
+}
+
+#page-content {
+  flex: 1 0 auto;
+}
+
+/* Others */
+
+.content-center {
+  justify-content: center;
+}

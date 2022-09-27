@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+  <div class="container">
+    <%= fa_icon "camera-retro 2x" %>
+    <%= link_to 'Photo App', root_path, class: "navbar-brand ml-1" %>
+    <span class="navbar-text">
+      <em>Loving life through photos</em>
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= fa_icon "user" %>
+            <%= link_to current_user.email, edit_user_registration_path, class: "nav-link text-light d-inline-flex", title: "Edit Profile" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Logout', destroy_user_session_path, class: "btn btn-danger", method: :delete %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign in', new_user_session_path, class: "btn btn-outline-light" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

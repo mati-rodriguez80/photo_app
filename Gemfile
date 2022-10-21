@@ -27,6 +27,8 @@ gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 # Provides the Font-Awesome web fonts and stylesheets as a Rails engine for use with the asset pipeline
 gem "font-awesome-rails"
+# Use Stripe for credit card payments
+gem 'stripe'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

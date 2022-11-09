@@ -1,7 +1,11 @@
+<script language="Javascript">
+  Stripe.setPublishableKey("<%= Rails.application.credentials.stripeAPI[:STRIPE_TEST_PUBLISHABLE_KEY] %>");
+</script>
+
 <div class="row content-center">
   <div class="col-xs-12 col-sm-10 col-md-7">
-    <h1 class="shadow-sm p-2 mb-4 bg-light rounded-lg text-center"><%= t('.sign_up') %></h1>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <h1 class="shadow-sm p-2 mb-4 bg-light rounded-lg text-center">Sign Up</h1>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "cc_form" }) do |f| %>
       <%= bootstrap_devise_error_messages! %>
 
       <div class="form-group">
@@ -63,7 +67,7 @@
       <% end %>
 
       <div class="form-group">
-        <%= f.submit t('.sign_up'), class: 'btn btn-outline-success btn-lg btn-block' %>
+        <%= f.submit 'Sign Up', class: 'btn btn-outline-success btn-lg btn-block' %>
       </div>
     <% end %>
 

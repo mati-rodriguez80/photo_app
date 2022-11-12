@@ -13,9 +13,15 @@ class Payment < ApplicationRecord
   end
 
   # According to Stripe docs (legacy), creates the actual charges by calling the Stripe API
-  def process_payment
+  def process_payment(plan)
     # Amount in cents
-    amount = 1000
+    if plan == 'premium'
+      amount = 1000
+      description = 'Premium Plan'
+    elsif plan == 'amaze'
+      amount = 2000
+      description = 'Amaze Plan'
+    end
 
     customer = Stripe::Customer.create(
       email: email,
@@ -25,7 +31,7 @@ class Payment < ApplicationRecord
     Stripe::Charge.create(
       customer: customer.id,
       amount: amount,
-      description: 'Premium Plan',
+      description: description,
       currency: 'usd'
     )
   end

@@ -5,70 +5,105 @@
 <div class="row content-center">
   <div class="col-xs-12 col-sm-10 col-md-7">
     <h1 class="shadow-sm p-2 mb-4 bg-light rounded-lg text-center">Sign Up</h1>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "cc_form" }) do |f| %>
-      <%= bootstrap_devise_error_messages! %>
+    <% if request.query_string == 'plan=premium' || request.query_string == 'plan=amaze' %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name, plan: request.query_string.split("=")[1]), html: { class: "cc_form" }) do |f| %>
+        <%= bootstrap_devise_error_messages! %>
 
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
-
-        <% if @minimum_password_length %>
-          <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
-        <% end %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
-      </div>
-
-      <%= fields_for :payment do |p| %>
         <div class="form-group">
-          <%= p.label :card_number, "Card Number", data: { stripe: "label" } %>
-          <div class="form-row align-items-center">
-            <div class="col-11">
-              <%= p.text_field :card_number, class: "form-control", data: { stripe: "number" }, required: true %>
-            </div>
-            <div class="col-1">
-              <%= fa_icon "credit-card 2x" %>
-            </div>
-          </div>
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', required: true %>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <%= p.label :card_cvc, "Card CVC", data: { stripe: "label" } %>
-            <%= p.text_field :card_cvc, class: "form-control", data: { stripe: "cvc" }, required: true %>
+
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control', required: true %>
+
+          <% if @minimum_password_length %>
+            <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control', required: true %>
+        </div>
+
+        <%= fields_for :payment do |p| %>
+          <div class="form-group">
+            <%= p.label :card_number, "Card Number", data: { stripe: "label" } %>
+            <div class="form-row align-items-center">
+              <div class="col-11">
+                <%= p.text_field :card_number, class: "form-control", data: { stripe: "number" }, required: true %>
+              </div>
+              <div class="col-1">
+                <%= fa_icon "credit-card 2x" %>
+              </div>
+            </div>
           </div>
-          <div class="form-group col-md-8">
-            <%= p.label :card_expires, "Card Expires", data: { stripe: "label" } %>
-            <div class="form-row">
-              <div class="col">
-                <%= p.select :card_expires_month, options_for_select(Payment.month_options), 
-                  { include_blank: 'Month' }, 
-                  class: "form-control",
-                  data: { stripe: "exp-month" },
-                  required: true %>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <%= p.label :card_cvc, "Card CVC", data: { stripe: "label" } %>
+              <%= p.text_field :card_cvc, class: "form-control", data: { stripe: "cvc" }, required: true %>
+            </div>
+            <div class="form-group col-md-8">
+              <%= p.label :card_expires, "Card Expires", data: { stripe: "label" } %>
+              <div class="form-row">
+                <div class="col">
+                  <%= p.select :card_expires_month, options_for_select(Payment.month_options), 
+                    { include_blank: 'Month' }, 
+                    class: "form-control",
+                    data: { stripe: "exp-month" },
+                    required: true %>
+                </div>
+                <div class="col">
+                  <%= p.select :card_expires_year, options_for_select(Payment.year_options), 
+                    { include_blank: 'Year' }, 
+                    class: "form-control",
+                    data: { stripe: "exp-year" },
+                    required: true %>
+                </div>
               </div>
-              <div class="col">
-                <%= p.select :card_expires_year, options_for_select(Payment.year_options), 
-                  { include_blank: 'Year' }, 
-                  class: "form-control",
-                  data: { stripe: "exp-year" },
-                  required: true %>
-              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% if request.query_string == 'plan=premium' %>
+          <p class="lead text-center">
+            You are going to pay <strong>USD 10</strong> for the <strong>Premium Plan</strong>
+          </p>
+          <p class="lead text-center">Please Sign Up to confirm</p>
+        <% elsif request.query_string == 'plan=amaze' %>
+          <p class="lead text-center">
+            You are going to pay <strong>USD 20</strong> for the <strong>Amaze Plan</strong>
+          </p>
+          <p class="lead text-center">Please Sign Up to confirm</p>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.submit 'Sign Up', class: 'btn btn-outline-success btn-lg btn-block', 
+            data: { toggle: "collapse", target: "#collapseWidthExample" }, 
+            aria: { expanded: "false", controls: "collapseWidthExample" } %>
+        </div>
+        <div class="collapse width" id="collapseWidthExample">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
           </div>
         </div>
       <% end %>
-
-      <div class="form-group">
-        <%= f.submit 'Sign Up', class: 'btn btn-outline-success btn-lg btn-block' %>
-      </div>
+    <% else %>
+      <p class="lead text-center">
+        <strong>
+          You are not allowed to be here without a selected plan. Please go back to the home page. We apologize for the inconvenience.
+        </strong>
+      </p>
     <% end %>
 
     <div class="text-center">

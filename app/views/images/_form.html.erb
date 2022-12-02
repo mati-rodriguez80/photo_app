@@ -1,0 +1,52 @@
+<%= form_with(model: image, multipart: true, class: "was-validated") do |form| %>
+  <% if image.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h2><%= pluralize(image.errors.count, "error") %> prohibited this image from being saved:</h2>
+      <ul>
+        <% image.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control", required: true %>
+  </div>
+
+  <div class="custom-file mt-3">
+    <%= form.file_field :picture, accept: "image/jpeg, image/gif, image/png", class: "custom-file-input", required: true %>
+    <%= form.label :picture, class: "custom-file-label" %>
+    <div class="invalid-feedback">Please choose a file type: jpg, jpeg, gif, png, which should be less than 5MB</div>
+  </div>
+
+  <div>
+    <%= form.submit 'Create Image', class: "btn btn-outline-warning mt-3" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  document.querySelector('#image_picture').addEventListener('change', function() {
+    const fileToBeUploaded = this.files[0];
+    const allowedImageTypes = ["image/jpeg", "image/gif", "image/png"];
+    const sizeInMegabytes = fileToBeUploaded.size/1024/1024;
+    const imageType = fileToBeUploaded.type;
+
+    if (sizeInMegabytes > 5) {
+      alert('Maximum file size is 5MB');
+    }
+
+    for (const type of allowedImageTypes) {
+      if (imageType !== type) {
+        continue;
+      } else {
+        return;
+      }
+    }
+    alert("The " + imageType + " file type is not allowed");
+  });
+</script>

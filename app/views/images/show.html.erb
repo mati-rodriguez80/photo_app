@@ -1,0 +1,19 @@
+<p>
+  <strong>Name:</strong>
+  <%= @image.name %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @image.picture %>
+</p>
+
+<%= image_tag(@image.picture.url, height: 300) if @image.picture? %>
+
+<p>
+  <strong>User:</strong>
+  <%= @image.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>

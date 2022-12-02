@@ -29,6 +29,10 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem "font-awesome-rails"
 # Use Stripe for credit card payments
 gem 'stripe'
+# This gem provides a simple and extremely flexible way to upload files from Ruby applications
+gem 'carrierwave'
+# A ruby wrapper for ImageMagick or GraphicsMagick command line
+gem "mini_magick"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

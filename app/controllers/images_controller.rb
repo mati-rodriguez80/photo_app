@@ -1,9 +1,10 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy ]
+  before_action :require_same_user, only: %i[ edit update destroy ]
 
   # GET /images or /images.json
   def index
-    @images = Image.all
+    @images = Image.page(params[:page]).per(10)
   end
 
   # GET /images/1 or /images/1.json
@@ -67,5 +68,13 @@ class ImagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def image_params
       params.require(:image).permit(:name, :picture)
+    end
+
+    # Only the user who uploaded the image can edit or delete it.
+    def require_same_user
+      if @image.user != current_user
+        flash[:alert] = "You can only edit or delete your own image"
+        redirect_to @image
+      end
     end
 end

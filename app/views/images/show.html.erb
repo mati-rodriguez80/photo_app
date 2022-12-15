@@ -1,19 +1,20 @@
-<p>
-  <strong>Name:</strong>
-  <%= @image.name %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @image.picture %>
-</p>
-
-<%= image_tag(@image.picture.url, height: 300) if @image.picture? %>
-
-<p>
-  <strong>User:</strong>
-  <%= @image.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_image_path(@image) %> |
-<%= link_to 'Back', images_path %>
+<div class="row content-center">
+  <div class="col-xs-12 col-sm-10 col-md-7">
+    <h1 class="shadow-sm p-2 mb-4 bg-light rounded-lg text-center"><%= @image.name %></h1>
+    <%= image_tag(@image.picture.url, class: "img-fluid rounded-lg") if @image.picture? %>
+    <% if @image.user != current_user %>
+      <div class="p-1 mt-4 bg-dark text-white text-center rounded-lg">
+        <h5>User: <strong><%= @image.user.email.split('@')[0] %></strong></h5>
+      </div>
+    <% else %>
+      <%= link_to 'Edit Image', edit_image_path(@image), class: "btn btn-outline-dark btn-block mt-4" %>
+      <%= link_to 'Delete Image', @image, 
+        class: "btn btn-outline-danger btn-block", 
+        method: :delete, 
+        data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <div class="text-center mt-3">
+      <%= link_to 'Back', :back, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

@@ -1,28 +1,23 @@
-<h1>Images</h1>
+<div class="row content-center">
+  <div class="col-xs-12 col-sm-10 col-md-8">
+    <h1 class="shadow-sm p-2 mb-4 bg-light rounded-lg text-center">Images Feed</h1>
 
-<table class="table table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Picture</th>
-      <th scope="col">User</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+    <%= paginate @images %>
+    <h6 class="text-center"><%= page_entries_info @images %></h6>
 
-  <tbody>
     <% @images.each do |image| %>
-      <tr>
-        <td><%= link_to image.name, image %></td>
-        <td><%= image_tag(image.picture.url, height: 100) if image.picture? %></td>
-        <td><%= image.user_id %></td>
-        <td><%= link_to 'Edit', edit_image_path(image) %></td>
-        <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= link_to(image) do %>
+        <%= image_tag(image.picture.url, class: "img-fluid") if image.picture? %>
+      <% end %>
+      <div class="p-1 bg-primary text-white text-center">
+        <h5><strong><%= image.name %></strong></h5>
+      </div>
+      <div class="p-1 bg-dark text-white text-center">
+        <h5>User: <strong><%= image.user.email.split('@')[0] %></strong></h5>
+      </div>
+      <br>
     <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Image', new_image_path, class: "btn btn-warning" %>
+    <%= paginate @images %>
+  </div>
+</div>

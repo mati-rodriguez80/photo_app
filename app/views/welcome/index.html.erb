@@ -1,8 +1,44 @@
 <% if user_signed_in? %>
   <div class="jumbotron">
-    <h1 class="display-4">Welcome <%= current_user.email %>!</h1>
-    <p class="lead">Manage your photos in the console</p>
+    <h1 class="display-4">Loving Life Through Photos</h1>
+    <p class="lead">Manage your photos in the dashboard</p>
   </div>
+
+  <% if current_user.images.empty? %>
+    <div class="text-center">
+      <h1>Welcome to your Dashboard!</h1>
+      <p class="lead">We are so happy that you are here and can't wait to see what pictures you are going to share with us!</p>
+      <p class="lead">Let's start with...</p>
+      <%= link_to 'Your First Image!', new_image_path, class: "btn btn-outline-primary btn-lg" %>
+      <p class="lead mt-2">
+        Or maybe you're still looking for that source of inspiration that allows you to think bigger. 
+        For that, you can now visit our...
+      </p>
+      <%= link_to 'Images Feed', images_path, class: "btn btn-outline-success btn-lg" %>
+      <p class="lead mt-2">...to look at what other users decided to upload. Have Fun!</p>
+    </div>
+  <% else %>
+    <h1 class="shadow-sm p-2 mx-3 mb-4 bg-light rounded-lg text-center">Images Dashboard</h1>
+    <hr>
+    <div class="card-columns mx-3">
+      <% @images.each do |image| %>
+        <div class="card">
+          <%= link_to(image) do %>
+            <%= image_tag(image.picture.url, class: "card-img-top") if image.picture? %>
+          <% end %>
+          <div class="card-body text-center">
+            <h5 class="card-title"><%= image.name %></h5>
+            <p class="card-text">
+              <small class="text-muted">
+                Created <%= time_ago_in_words(image.created_at) %> ago, 
+                Edited <%= time_ago_in_words(image.updated_at) %> ago
+              </small>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% else %>
   <div class="jumbotron">
     <h1 class="display-4">Welcome to the Photo Management App!</h1>

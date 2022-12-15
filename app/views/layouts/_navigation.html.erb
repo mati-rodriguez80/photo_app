@@ -10,6 +10,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+        <form class="form-inline ml-auto">
+          <%= link_to 'New Image', new_image_path, class: "btn btn-outline-light" %>
+          <%= link_to 'Images Feed', images_path, class: "btn btn-outline-light" %>
+        </form>
+      <% end %>
       <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
           <li class="nav-item">

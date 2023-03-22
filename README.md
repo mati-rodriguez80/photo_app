@@ -1,7 +1,8 @@
-# PHOTO APP
+# Photo App
 
-This web application is built while doing "The Complete Ruby on Rails Developer Course" on Udemy. 
-The goal with this app is to learn some of the next topics which are different from previous apps:
+This web application was built while doing "The Complete Ruby on Rails Developer Course" on Udemy. Users can share their images, photos, etc. after signing up to the app and making a unique payment for one of the two plans available.
+
+The goal with this app was to learn some of the next topics which are different from previous apps:
 
 * Use and customize Devise in order to ensure that when a user signs up, their email address is verified
 * Extend a Devise controller to add the ability to accept payments when the user signs up
@@ -9,7 +10,7 @@ The goal with this app is to learn some of the next topics which are different f
 * Use JavaScript for some of the features of the app both adding a js file in the javascript folder and within script elements
 * Add image upload functionality using CarrierWave and MiniMagick
 
-## General Information
+### General Information
 
 * Ruby version: 2.7.5
 * Rails version: 6.1.7

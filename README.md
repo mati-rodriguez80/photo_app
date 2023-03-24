@@ -10,6 +10,15 @@ The goal with this app was to learn some of the next topics which are different 
 * Use JavaScript for some of the features of the app both adding a js file in the javascript folder and within script elements
 * Add image upload functionality using CarrierWave and MiniMagick
 
+## Clone Repository
+
+If you are going to clone this repository, remember to execute these steps before you run the app locally:
+
+* yarn add bootstrap@4.6.1 jquery popper.js
+* bundle install
+* rails db:migrate
+* ImageMagick or GraphicsMagick command-line tool has to be installed
+
 ### General Information
 
 * Ruby version: 2.7.5

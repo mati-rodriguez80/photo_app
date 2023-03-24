@@ -71,13 +71,12 @@
           <p class="lead text-center">
             You are going to pay <strong>USD 10</strong> for the <strong>Premium Plan</strong>
           </p>
-          <p class="lead text-center">Please Sign Up to confirm</p>
         <% elsif request.query_string == 'plan=amaze' %>
           <p class="lead text-center">
             You are going to pay <strong>USD 20</strong> for the <strong>Amaze Plan</strong>
           </p>
-          <p class="lead text-center">Please Sign Up to confirm</p>
         <% end %>
+        <p class="lead text-center">Please Sign Up to confirm</p>
 
         <div class="form-group">
           <%= f.submit 'Sign Up', class: 'btn btn-outline-success btn-lg btn-block', 
